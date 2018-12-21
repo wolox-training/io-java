@@ -1,4 +1,6 @@
 package wolox.training.models;
+import wolox.training.DAO.BookDAO;
+
 import javax.persistence.*;
 
 
@@ -37,6 +39,16 @@ public class Book {
     private String isbn;
 
     public Book() {
+    }
+
+    public Book(BookDAO bookDAO) {
+        this.title = bookDAO.getTitle();
+        this.subtitle = bookDAO.getSubtitle();
+        this.publisher = bookDAO.getPublishers();
+        this.isbn = bookDAO.getIsbn();
+        this.year = bookDAO.getPublishDate();
+        this.author = bookDAO.getAuthors().stream().findFirst().get();
+        this.image = bookDAO.getCover();
     }
 
     public void setId(int id) {
