@@ -35,6 +35,16 @@ public class Book {
     @Column(nullable = false)
     private String isbn;
 
+    public Book(String title, String author, String image, String subtitle, String publisher, String year, int pages, String isbn) {
+        this.title = title;
+        this.author = author;
+        this.image = image;
+        this.subtitle = subtitle;
+        this.publisher = publisher;
+        this.year = year;
+        this.pages = pages;
+        this.isbn = isbn;
+    }
 
     public Book() {
     }
@@ -105,5 +115,20 @@ public class Book {
 
     public void setIsbn(String isbn) {
         this.isbn = isbn;
+    }
+
+    @Override
+    public String toString() {
+        return "Book{" +
+                "id=" + id +
+                ", title='" + title + '\'' +
+                ", author='" + author + '\'' +
+                ", image='" + image + '\'' +
+                ", subtitle='" + subtitle + '\'' +
+                ", publisher='" + publisher + '\'' +
+                ", year='" + year + '\'' +
+                ", pages=" + pages +
+                ", isbn='" + isbn + '\'' +
+                '}';
     }
 }
