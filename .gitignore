@@ -1,8 +1,5 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
-.class
-.bin
-.lock
 
 ### STS ###
 .apt_generated
@@ -12,6 +9,9 @@
 .settings
 .springBeans
 .sts4-cache
+.class
+.bin
+.lock
 
 ### IntelliJ IDEA ###
 .idea
