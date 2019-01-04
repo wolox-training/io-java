@@ -21,27 +21,6 @@ public class BookController {
         model.addAttribute("name", name);
         return "greeting "+name;
     }
-    @GetMapping
-    public Iterable findAll() {
-        return bookRepository.findAll();
-    }
-
-    @RequestMapping("/save")
-    public String process(){
-        //Only for testing
-        bookRepository.save(new Book ("Title", "Author","Image",
-                                        "Subtitle", "Publisher", "year", 2, "isbn"));
-        return "Done";
-    }
-
-    @RequestMapping("/test")
-    public String test(@RequestParam("title") String title){
-        System.out.println(title);
-        //Only for testing
-        bookRepository.save(new Book (title, "Author","Image",
-                "Subtitle", "Publisher", "year", 2, "isbn"));
-        return title;
-    }
 
     @RequestMapping("/create")
     @PostMapping("/books/{id}")
@@ -50,25 +29,32 @@ public class BookController {
         return bookRepository.save(book);
     }
 
-    @GetMapping("/title/{bookTitle}")
-    public Optional<Book> findByTitle(@PathVariable String bookTitle) {
-        return bookRepository.findByTitle(bookTitle);
+    @GetMapping("/view")
+    public Iterable findAll() {
+        return bookRepository.findAll();
     }
 
-    @GetMapping("/{id}")
-    public Optional<Book> findOne(@PathVariable Long id) {
+    @GetMapping("/")
+    public Iterable<Book> findBooks(@RequestParam(name="bookTitle", required=false, defaultValue="") String bookTitle,
+                                    @RequestParam(name="author", required=false, defaultValue="") String author,
+                                    @RequestParam(name="isbn", required=false, defaultValue="") String isbn) {
+        System.out.println(bookTitle);
+        return bookRepository.findByAuthorContainingAndTitleContainingAndIsbnContainingAllIgnoreCase( author, bookTitle, isbn);
+    }
+
+    @GetMapping("/view/{id}")
+    public Book findById(@PathVariable long id){
         return bookRepository.findById(id);
     }
 
+
     @PutMapping("/{id}")
     public Book updateBook(@RequestBody Book book, @PathVariable Long id) {
-        bookRepository.findById(id);
         return bookRepository.save(book);
     }
 
     @DeleteMapping("/{id}")
     public void delete(@PathVariable Long id) {
-        bookRepository.findById(id);
         bookRepository.deleteById(id);
     }
 }
