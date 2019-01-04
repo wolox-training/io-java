@@ -1,5 +1,8 @@
 /target/
 !.mvn/wrapper/maven-wrapper.jar
+.class
+.bin
+.lock
 
 ### STS ###
 .apt_generated
