@@ -39,7 +39,7 @@ public class BookController {
                                     @RequestParam(name="author", required=false, defaultValue="") String author,
                                     @RequestParam(name="isbn", required=false, defaultValue="") String isbn) {
         System.out.println(bookTitle);
-        return bookRepository.findByAuthorContainingAndTitleContainingAndIsbnContainingAllIgnoreCase( author, bookTitle, isbn);
+        return bookRepository.findByAuthorContainingAndTitleContainingAndIsbnContainingAllIgnoreCase(author, bookTitle, isbn);
     }
 
     @GetMapping("/view/{id}")
