@@ -28,11 +28,7 @@ public class BookController {
     public Book create(@RequestBody Book book ) {
         return bookRepository.save(book);
     }
-
-    @GetMapping("/view")
-    public Iterable findAll() {
-        return bookRepository.findAll();
-    }
+    
 
     @GetMapping("/")
     public Iterable<Book> findBooks(@RequestParam(name="bookTitle", required=false, defaultValue="") String bookTitle,
