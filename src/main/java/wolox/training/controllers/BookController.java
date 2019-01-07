@@ -38,11 +38,10 @@ public class BookController {
     public Iterable<Book> findBooks(@RequestParam(name="bookTitle", required=false, defaultValue="") String bookTitle,
                                     @RequestParam(name="author", required=false, defaultValue="") String author,
                                     @RequestParam(name="isbn", required=false, defaultValue="") String isbn) {
-        System.out.println(bookTitle);
         return bookRepository.findByAuthorContainingAndTitleContainingAndIsbnContainingAllIgnoreCase(author, bookTitle, isbn);
     }
 
-    @GetMapping("/view/{id}")
+    @GetMapping("/{id}")
     public Book findById(@PathVariable long id){
         return bookRepository.findById(id);
     }
