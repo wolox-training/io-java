@@ -10,6 +10,7 @@ import java.util.Optional;
 
 public interface BookRepository extends CrudRepository<Book, Long> {
 
-    Optional<Book> findByAuthor(String author);
-
+    Iterable<Book> findByAuthorContainingAndTitleContainingAndIsbnContainingAllIgnoreCase(String author, String title, String isbn);
+    Optional<Book> findByIsbn(String isbn);
+    Book findById(long id);
 }

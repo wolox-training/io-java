@@ -2,12 +2,13 @@ package wolox.training.controllers;
 
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import wolox.training.models.Book;
 import wolox.training.repositories.BookRepository;
+
+import java.util.Optional;
 
 @RestController
 @RequestMapping("/api/books")
@@ -20,11 +21,35 @@ public class BookController {
         model.addAttribute("name", name);
         return "greeting "+name;
     }
-    @GetMapping
-    public Iterable findAll() {
-        return bookRepository.findAll();
+
+    @RequestMapping("/create")
+    @PostMapping("/books/{id}")
+    @ResponseStatus(HttpStatus.CREATED)
+    public Book create(@RequestBody Book book ) {
+        return bookRepository.save(book);
+    }
+    
+
+    @GetMapping("/")
+    public Iterable<Book> findBooks(@RequestParam(name="bookTitle", required=false, defaultValue="") String bookTitle,
+                                    @RequestParam(name="author", required=false, defaultValue="") String author,
+                                    @RequestParam(name="isbn", required=false, defaultValue="") String isbn) {
+        return bookRepository.findByAuthorContainingAndTitleContainingAndIsbnContainingAllIgnoreCase(author, bookTitle, isbn);
+    }
+
+    @GetMapping("/{id}")
+    public Book findById(@PathVariable long id){
+        return bookRepository.findById(id);
     }
 
 
+    @PutMapping("/{id}")
+    public Book updateBook(@RequestBody Book book, @PathVariable Long id) {
+        return bookRepository.save(book);
+    }
 
+    @DeleteMapping("/{id}")
+    public void delete(@PathVariable Long id) {
+        bookRepository.deleteById(id);
+    }
 }
