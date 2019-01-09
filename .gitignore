@@ -9,9 +9,9 @@
 .settings
 .springBeans
 .sts4-cache
-.class
-.bin
-.lock
+*.class
+*.bin
+*.lock
 
 ### IntelliJ IDEA ###
 .idea
